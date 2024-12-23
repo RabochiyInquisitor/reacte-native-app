@@ -8,7 +8,7 @@ const Tasks = ({ route }) => {
     const [image, setImage] = useState(null);
 
     const pickImage = async () => {
-      // No permissions request is necessary for launching the image library
+      
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ['images', 'videos'],
         allowsEditing: true,
@@ -36,7 +36,7 @@ const Tasks = ({ route }) => {
 
     
 
-    const [tasks, setTasks] = useState([]); // Используем состояние для хранения задач
+    const [tasks, setTasks] = useState([]); 
     const [modalVisible, changeVisible] = useState("none");
     const [taskText, setTaskText] = useState("");
     
@@ -45,7 +45,7 @@ const Tasks = ({ route }) => {
         const fetchTasks = async () => {
             const storedTasks = await Gettask();
             if (storedTasks) {
-                setTasks(storedTasks); // Парсим строку в массив
+                setTasks(storedTasks); 
             }
         };
         fetchTasks();
@@ -72,16 +72,16 @@ const Tasks = ({ route }) => {
     }
 
     const removeTask = async (id) => {
-        const updatedTasks = tasks.filter(task => task.id !== id); // Фильтруем задачи, чтобы удалить нужную
-        setTasks(updatedTasks); // Обновляем состояние с новым массивом
-        await SaveInStorage(updatedTasks); // Сохраняем обновленный массив в AsyncStorage
+        const updatedTasks = tasks.filter(task => task.id !== id);
+        setTasks(updatedTasks); 
+        await SaveInStorage(updatedTasks); 
     };
 
 
     const addNewTask = async () => {
-        const newTask = { id: String(tasks.length + 1), title: taskText, image: image}; // Создаем новую задачу
+        const newTask = { id: String(tasks.length + 1), title: taskText, image: image}; 
         const updated = [...tasks, newTask]
-        setTasks(updated); // Обновляем состояние с новым массивом
+        setTasks(updated); 
         setTaskText("");
         setImage(null);
         await SaveInStorage(updated)
@@ -97,9 +97,9 @@ const Tasks = ({ route }) => {
                     </View>
 
                     {tasks[0] != null && <FlatList
-                        data={tasks} // Используем состояние для отображения задач
+                        data={tasks} 
                         renderItem={renderItem}
-                        keyExtractor={item => item.id} // Добавляем ключ для каждого элемента
+                        keyExtractor={item => item.id} 
                     />}
                     {tasks[0] == null && <Text style={{fontSize: 30, marginBottom: 100}}>No tasks yet!</Text>}
 
@@ -143,15 +143,13 @@ const styles = StyleSheet.create({
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",
-        //flex: 1,
+        
     },
     for_text: {
         width :"100%",
         display: "flex",
         alignItems: "center",
-        //flexDirection: "column",
-        //justifyContent: "center", // добавлено
-        height: '100%', // добавлено для центрирования по вертикали
+        height: '100%', 
         justifyContent: "space-between",
         flexDirection: "column",
     },
